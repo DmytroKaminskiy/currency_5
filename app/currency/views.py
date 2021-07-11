@@ -1,7 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
 from currency.utils import generate_password as gen_pass
+
+from django.http import HttpResponse
 
 
 def hello_world(request):
