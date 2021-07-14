@@ -1,11 +1,13 @@
+from django.shortcuts import render
+
 from currency.utils import generate_password as gen_pass
 from currency.models import Rate
 
 from django.http import HttpResponse
 
 
-def hello_world(request):
-    return HttpResponse('Hello World')
+def index(request):
+    return render(request, 'index.html')
 
 
 def generate_password(request):
@@ -14,14 +16,41 @@ def generate_password(request):
     return HttpResponse(password)
 
 
-def rate_list(requests):
+def rate_list(request):
     rates = Rate.objects.all()
+    context = {
+        'rate_list': rates,
+    }
+    return render(request, 'rate_list.html', context=context)
 
-    result = []
-    for rate in rates:
-        # breakpoint()
-        result.append(
-            f'Id: {rate.id} Sale: {rate.sale} Buy: {rate.buy}</br>'
-        )
 
-    return HttpResponse(str(result))
+def response_codes(request):
+    '''
+    Informational
+    1xx
+    101 - connected
+
+    Success
+    2xx
+    200 - Ok
+    201 - Created
+    202 - Accepted
+
+    Redirect
+    3xx
+    301 - Permanent
+    302 - temporary
+
+    Client Errors
+    4xx
+    400 - Bad Request
+    404 - Not Found (page, resource, object)
+
+    Server Error
+    5xx
+    500 - Server Error
+    502 - server not available
+    '''
+
+    response = HttpResponse('Status Code', status=404)
+    return response

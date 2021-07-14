@@ -1,4 +1,4 @@
-from currency.views import generate_password, hello_world, rate_list
+from currency.views import generate_password, index, rate_list, response_codes
 
 from django.contrib import admin
 from django.urls import path
@@ -6,9 +6,10 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index),
 
     # currency
     path('rate/list/', rate_list),
-    path('hello-world/', hello_world),
+    path('response-codes/', response_codes),
     path('gen-pass/', generate_password),
 ]
