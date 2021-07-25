@@ -146,27 +146,80 @@ from datetime import date
 # print(h1.age)
 
 
-class Human:
-    def __init__(self, first_name):
-        self._first_name = first_name.capitalize()
+# class Human:
+#     def __init__(self, first_name):
+#         self._first_name = first_name.capitalize()
+#
+#     @property
+#     def first_name(self):  # getter
+#         return self._first_name
+#
+#     @first_name.setter
+#     def first_name(self, value):  # setter
+#         self._first_name = value.capitalize()
+#
+#     @first_name.deleter
+#     def first_name(self):  # deleter
+#         self._first_name = None
+#
+# h1 = Human('dmytro')
+# print(h1.first_name)
+# h1.first_name = 'alEX'
+# print(h1.first_name)
+#
+# del h1.first_name
+# print(h1.first_name)
 
-    @property
-    def first_name(self):  # getter
-        return self._first_name
 
-    @first_name.setter
-    def first_name(self, value):  # setter
-        self._first_name = value.capitalize()
+# class TemplateView:
+#     def get_context_data(self, **kwargs):
+#         context = {
+#             'message': 'Hello',
+#         }
+#         return context
+#
+#
+# class GeneratePasswordView(TemplateView):
+#     template_name = 'generate_password.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # context = {}
+#         return context
+#
+#
+# gp = GeneratePasswordView()
+# print(gp.get_context_data())
 
-    @first_name.deleter
-    def first_name(self):  # deleter
-        self._first_name = None
+'''
+1. CRUD операции для модели Source создать на основе class based views.
+2. Создать модуль urls.py в приложении currency и подключить в settings/urls.py
+3. Все линки в шаблонах должны быть сгенерированы с помощью тега {% url '...' %}
+4. Все линки в python коде должны быть сгенерированы с помощью функции reverse или reverse_lazy
+'''
 
-h1 = Human('dmytro')
-print(h1.first_name)
-h1.first_name = 'alEX'
-print(h1.first_name)
+# from functools import reduce
 
-del h1.first_name
-print(h1.first_name)
+def add(x, y):
+    return x + y
 
+print(add(2, 3))
+print(add.__call__(2, 3))
+
+# print(reduce(add, [1, 2, 3]))
+# print(reduce(lambda x, y: x + y, [1, 2, 3]))
+
+add2 = lambda x, y: x + y
+print(add2(2, 3))
+print(add2.__call__(2, 3))
+
+# class Foo:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#     def __call__(self, *args, **kwargs):
+#         return self.x + self.y
+#
+# f = Foo(3, 6)
+# print(f())
