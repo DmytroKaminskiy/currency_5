@@ -110,6 +110,9 @@
 # t.perimeter()
 
 '''
+Lesson10
+Формы
+
 1. Создать модель Source с полями
    id
    source_url = string(255)
