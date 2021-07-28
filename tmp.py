@@ -203,18 +203,18 @@ from datetime import date
 
 # from functools import reduce
 
-def add(x, y):
-    return x + y
-
-print(add(2, 3))
-print(add.__call__(2, 3))
-
-# print(reduce(add, [1, 2, 3]))
-# print(reduce(lambda x, y: x + y, [1, 2, 3]))
-
-add2 = lambda x, y: x + y
-print(add2(2, 3))
-print(add2.__call__(2, 3))
+# def add(x, y):
+#     return x + y
+#
+# print(add(2, 3))
+# print(add.__call__(2, 3))
+#
+# # print(reduce(add, [1, 2, 3]))
+# # print(reduce(lambda x, y: x + y, [1, 2, 3]))
+#
+# add2 = lambda x, y: x + y
+# print(add2(2, 3))
+# print(add2.__call__(2, 3))
 
 # class Foo:
 #     def __init__(self, x, y):
@@ -226,3 +226,37 @@ print(add2.__call__(2, 3))
 #
 # f = Foo(3, 6)
 # print(f())
+
+"""
+http - 80
+https - 443
+smtp - simple mail transfer protocol 587, 22
+"""
+
+class Car:
+
+    def start(self):
+        print('Car is starting...')
+
+    def stop(self):
+        print('Car stop')
+
+    def __enter__(self):
+        self.start()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stop()
+
+
+c1 = Car()
+
+with c1:
+    print('1111')
+    print('2222')
+
+    # 1 + '1'
+# try:
+#     c1.start()
+#     1 + '1'
+# finally:
+#     c1.stop()

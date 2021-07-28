@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
+from django.core.mail import send_mail
+# from settings import settings  WRONG
+from django.conf import settings
 
 from currency.utils import generate_password as gen_pass
-from currency.models import Rate
+from currency.models import Rate, ContactUs
 from currency.forms import RateForm
 from django.views.generic import (
     ListView, CreateView, DetailView, UpdateView,
@@ -69,6 +72,38 @@ class RateDeleteView(DeleteView):
     queryset = Rate.objects.all()
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'rate_delete.html'
+
+
+class ContactUsCreateView(CreateView):
+    model = ContactUs
+    success_url = reverse_lazy('index')
+    template_name = 'contactus_create.html'
+    fields = (
+        'email_to',
+        'subject',
+        'body',
+    )
+
+    def form_valid(self, form):
+        subject = form.cleaned_data['subject']
+        body = form.cleaned_data['body']
+        email_to = form.cleaned_data['email_to']
+
+        full_email_body = f'''
+        Email From: {email_to}
+        Body: {body}
+        '''
+
+        send_mail(
+            subject,
+            full_email_body,
+            settings.EMAIL_HOST_USER,
+            [settings.SUPPORT_EMAIL],
+            fail_silently=False,
+        )
+
+        return super().form_valid(form)
+
 
 # def rate_list(request):
 #     rates = Rate.objects.all()

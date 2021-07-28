@@ -24,6 +24,8 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'debug_toolbar',
+    'rangefilter',
+    'import_export',
 
     'currency',
 ]
@@ -119,3 +121,12 @@ INTERNAL_IPS = [
     '127.0.0.1',
     '172.31.69.226',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
+EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
+SUPPORT_EMAIL = 'testtestapp454545@gmail.com'
