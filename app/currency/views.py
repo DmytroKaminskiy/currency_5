@@ -1,15 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
-from django.core.mail import send_mail
-# from settings import settings  WRONG
-from django.conf import settings
+from django.urls import reverse_lazy
+from currency.tasks import contact_us
 
 from currency.utils import generate_password as gen_pass
 from currency.models import Rate, ContactUs
 from currency.forms import RateForm
 from django.views.generic import (
     ListView, CreateView, DetailView, UpdateView,
-    DeleteView, View, TemplateView
+    DeleteView, TemplateView
 )
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -93,14 +90,7 @@ class ContactUsCreateView(CreateView):
         Email From: {email_to}
         Body: {body}
         '''
-
-        send_mail(
-            subject,
-            full_email_body,
-            settings.EMAIL_HOST_USER,
-            [settings.SUPPORT_EMAIL],
-            fail_silently=False,
-        )
+        contact_us.apply_async(args=(subject, ), kwargs={'body': full_email_body})
 
         return super().form_valid(form)
 

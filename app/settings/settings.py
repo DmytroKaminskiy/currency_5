@@ -1,4 +1,5 @@
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -122,11 +123,20 @@ INTERNAL_IPS = [
     '172.31.69.226',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
 EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
 SUPPORT_EMAIL = 'testtestapp454545@gmail.com'
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+CELERY_BEAT_SCHEDULE = {
+    'debug': {
+        'task': 'currency.tasks.debug_task',
+        'schedule': crontab(minute='*/1'),
+    },
+}

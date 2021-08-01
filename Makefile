@@ -10,3 +10,10 @@ migrate:
 
 makemigrations:
 	$(manage_py) makemigrations
+
+worker:
+	cd app && celery -A settings worker -l info --autoscale=10,0
+	#cd app && celery -A settings worker -l info --concurrency 20
+
+beat:
+	cd app && celery -A settings beat -l info
