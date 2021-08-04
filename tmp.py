@@ -233,26 +233,26 @@ https - 443
 smtp - simple mail transfer protocol 587, 22
 """
 
-class Car:
-
-    def start(self):
-        print('Car is starting...')
-
-    def stop(self):
-        print('Car stop')
-
-    def __enter__(self):
-        self.start()
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.stop()
-
-
-c1 = Car()
-
-with c1:
-    print('1111')
-    print('2222')
+# class Car:
+#
+#     def start(self):
+#         print('Car is starting...')
+#
+#     def stop(self):
+#         print('Car stop')
+#
+#     def __enter__(self):
+#         self.start()
+#
+#     def __exit__(self, exc_type, exc_val, exc_tb):
+#         self.stop()
+#
+#
+# c1 = Car()
+#
+# with c1:
+#     print('1111')
+#     print('2222')
 
     # 1 + '1'
 # try:
@@ -260,3 +260,75 @@ with c1:
 #     1 + '1'
 # finally:
 #     c1.stop()
+
+# __mro__
+
+# print(
+#     1 + 1,
+#     '1' + '1',
+#     [1, 2] + [3, 4],
+#     sep='\n'
+# )
+#
+# print(
+#     int(1).__add__(1),
+#     '1'.__add__('1'),
+#     [1, 2].__add__([3, 4]),
+#     sep='\n'
+# )
+# + - / % // +=
+
+# import random
+#
+# class Cat:
+#     def __init__(self, name, color):
+#         self.name = name
+#         self.color = color
+#
+#     def __add__(self, other):
+#         color = random.choice([self.color, other.color])
+#         # return Cat(name=None, color=color)
+#         return self.__class__(name=None, color=color)
+#
+#     def __len__(self):
+#         return len(self.name)
+#
+# c1 = Cat('Tom', 'black')
+# c2 = Cat('Alisa', 'white')
+# c3 = Cat('A', 'red')
+# c4 = Cat('B', 'grey')
+#
+# c_new = c1 + c2 + c3 + c4
+# print(c_new.color)
+# print(len(c2))
+
+# c3 = c1 + c2
+# print(c3)
+# print(c3.color)
+
+# print(c1.__add__(c2))
+
+
+class A:
+    def foo(self):
+        print('A')
+
+class B(A):
+    def foo(self):
+        print('B')
+
+class C(B):
+    def foo(self):
+        print('C')
+
+class D(A):
+    pass
+    # def foo(self):
+    #     print('D')
+
+class Z(D, C, A):
+    pass
+
+z = Z()
+z.foo()
+print(Z.__mro__)  # method resolution order

@@ -11,6 +11,9 @@ migrate:
 makemigrations:
 	$(manage_py) makemigrations
 
+shell:
+	$(manage_py) shell_plus --print-sql
+
 worker:
 	cd app && celery -A settings worker -l info --autoscale=10,0
 	#cd app && celery -A settings worker -l info --concurrency 20
