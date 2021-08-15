@@ -41,6 +41,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'currency.middlewares.ResponseTimeMiddleware',
+    # 'currency.middlewares.GclidMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'

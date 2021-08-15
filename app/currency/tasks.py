@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 import requests
 from decimal import Decimal
+from currency import model_choices as mch
 
 
 def round_currency(num):
@@ -42,7 +43,11 @@ def parse_privatbank():
 
     rates = response.json()
     source = 'privatbank'
-    available_currency_types = ('USD', 'EUR')
+    # available_currency_types = ('USD', 'EUR')
+    available_currency_types = {
+        'USD': mch.TYPE_USD,
+        'EUR': mch.TYPE_EUR,
+    }
 
     for rate in rates:
         currency_type = rate['ccy']
@@ -50,9 +55,10 @@ def parse_privatbank():
 
             sale = round_currency(rate['sale'])
             buy = round_currency(rate['buy'])
+            ct = available_currency_types[currency_type]
 
             last_rate = Rate.objects.filter(
-                type=currency_type,
+                type=ct,
                 source=source,
             ).order_by('created').last()  # last() - returns object or None
 
@@ -62,7 +68,7 @@ def parse_privatbank():
                     last_rate.buy != buy # last buy was changed
             ):
                 Rate.objects.create(
-                    type=currency_type,
+                    type=ct,
                     sale=sale,
                     buy=buy,
                     source=source,

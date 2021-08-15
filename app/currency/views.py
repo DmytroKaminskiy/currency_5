@@ -12,22 +12,6 @@ from django.views.generic import (
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 
 
-# def index(request):
-#     return render(request, 'index.html')
-
-
-
-# def generate_password(request):
-#     password_len = int(request.GET.get('password-len'))
-#     password = gen_pass(password_len)
-#     return HttpResponse(password)
-
-# class GeneratePasswordView(View):
-#     def get(self, request):
-#         password_len = int(request.GET.get('password-len'))
-#         password = gen_pass(password_len)
-#         return HttpResponse(password)
-
 class GeneratePasswordView(TemplateView):
     template_name = 'generate_password.html'
 
@@ -41,7 +25,7 @@ class GeneratePasswordView(TemplateView):
 
 
 class RateListView(ListView):
-    queryset = Rate.objects.all()
+    queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
 
 
