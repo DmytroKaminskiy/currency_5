@@ -2,17 +2,20 @@ from pathlib import Path
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f*6!j-#z5#5ag(8q+9@2=fvn$e!hcv+k8b^2*q%xwghrgvs+t!'
+SECRET_KEY = 'django-insecure-f*6!j-#awefserfz5#5ag(8q+9@2=fvn$e!hcv+k8b^2*q%xwghrgvs+t!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # TODO move to env
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+LOGOUT_REDIRECT_URL = reverse_lazy('index')
 # Application definition
 
 INSTALLED_APPS = [
@@ -28,6 +31,7 @@ INSTALLED_APPS = [
     'rangefilter',
     'import_export',
 
+    'accounts',
     'currency',
 ]
 
@@ -109,7 +113,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 

@@ -28,6 +28,10 @@ class RateListView(ListView):
     queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
 
+    # def get(self, request, *args, **kwargs):
+    #     print(request.COOKIES)
+    #     return super().get(request, *args, **kwargs)
+
 
 class RateCreateView(CreateView):
     # model = Rate

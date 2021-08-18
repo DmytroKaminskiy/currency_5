@@ -14,6 +14,9 @@ makemigrations:
 shell:
 	$(manage_py) shell_plus --print-sql
 
+createsuperuser:
+	$(manage_py) createsuperuser
+
 worker:
 	cd app && celery -A settings worker -l info --autoscale=10,0
 	#cd app && celery -A settings worker -l info --concurrency 20
