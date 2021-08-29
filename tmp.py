@@ -332,3 +332,18 @@ class Z(D, C, A):
 z = Z()
 z.foo()
 print(Z.__mro__)  # method resolution order
+
+
+'''
+backend
+python3
+django
+database
+
+frontend
+html
+css
+javascript
+
+bootstrap
+'''

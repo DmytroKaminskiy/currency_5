@@ -9,10 +9,10 @@ from accounts.models import User
 
 
 class MyProfileView(LoginRequiredMixin, UpdateView):
-    # queryset = User.objects.all()
     fields = (
         'first_name',
         'last_name',
+        'avatar',
     )
     success_url = reverse_lazy('index')
     template_name = 'my_profile.html'

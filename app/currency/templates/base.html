@@ -1,8 +1,14 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
+
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
 </head>
 <body>
 
@@ -10,8 +16,12 @@
 
 {% include 'includes/navbar.html' %}
 
-{% block main_content %}
-{% endblock %}
+<div class="container">
+    {% block main_content %}
+    {% endblock %}
+</div>
 
+<script src="{% static 'scripts/jquery-3.5.1.slim.min.js' %}"></script>
+<script src="{% static 'scripts/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
