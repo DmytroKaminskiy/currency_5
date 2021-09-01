@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from currency.tasks import contact_us
 
 from currency.utils import generate_password as gen_pass
-from currency.models import Rate, ContactUs
+from currency.models import Rate, ContactUs, Source
 from currency.forms import RateForm
 from django.views.generic import (
     ListView, CreateView, DetailView, UpdateView,
@@ -22,10 +22,10 @@ class GeneratePasswordView(TemplateView):
         context['password'] = gen_pass(password_len)
 
         return context
-
+9
 
 class RateListView(ListView):
-    queryset = Rate.objects.all().order_by('-created')
+    queryset = Rate.objects.all().select_related('source').order_by('-created')
     template_name = 'rate_list.html'
 
     # def get(self, request, *args, **kwargs):
@@ -82,93 +82,9 @@ class ContactUsCreateView(CreateView):
 
         return super().form_valid(form)
 
-
-# def rate_list(request):
-#     rates = Rate.objects.all()
-#     context = {
-#         'rate_list': rates,
-#     }
-#     return render(request, 'rate_list.html', context=context)
-
-
-# def rate_create(request):
-#
-#     '''
-#     GET /rate/create/?buy=34&sale=34&source=PrivatBank&type=USD
-#     Path: /rate/create/
-#     Params: buy=34&sale=34&source=PrivatBank&type=USD
-#
-#     POST /rate/create/
-#     Path: /rate/create/
-#
-#     buy=34&sale=34&source=PrivatBank&type=USD
-#
-#     R - GET - read object
-#     C - POST - create object
-#     U - PUT/PATCH - update object
-#     D - DELETE - delete object
-#     '''
-#
-#     if request.method == 'POST':
-#         form = RateForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             # return HttpResponseRedirect('/rate/list/')
-#             # return HttpResponseRedirect(reverse('rate-list'))
-#             return redirect('rate-list')
-#     elif request.method == 'GET':
-#         form = RateForm()
-#
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'rate_create.html', context=context)
-
-
-# def rate_details(request, rate_id):
-#     # /rate/details/?rate-id=awdaw
-#     # /rate/details/102/
-#
-#     # try:
-#     #     rate = Rate.objects.get(id=rate_id)
-#     # except Rate.DoesNotExist as exc:
-#     #     raise Http404(exc)
-#     rate = get_object_or_404(Rate, id=rate_id)
-#     context = {
-#         'object': rate,
-#     }
-#     return render(request, 'rate_details.html', context=context)
-
-
-# def rate_update(request, rate_id):
-#     rate = get_object_or_404(Rate, id=rate_id)
-#
-#     if request.method == 'POST':
-#         form = RateForm(request.POST, instance=rate)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/rate/list/')
-#     elif request.method == 'GET':
-#         form = RateForm(instance=rate)
-#
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'rate_update.html', context=context)
-
-#
-# def rate_delete(request, rate_id):
-#     rate = get_object_or_404(Rate, id=rate_id)
-#
-#     if request.method == 'POST':
-#         rate.delete()
-#         return HttpResponseRedirect('/rate/list/')
-#
-#     # if request.method == 'GET'
-#     context = {
-#         'object': rate,
-#     }
-#     return render(request, 'rate_delete.html', context=context)
+class SourceDetailView(DetailView):
+    queryset = Source.objects.all()
+    template_name = 'source_details.html'
 
 
 def response_codes(request):

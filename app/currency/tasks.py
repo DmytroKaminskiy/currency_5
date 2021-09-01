@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 import requests
 from decimal import Decimal
+from currency import consts
 from currency import model_choices as mch
 
 
@@ -34,7 +35,7 @@ def contact_us(subject, body):
 
 @shared_task
 def parse_privatbank():
-    from currency.models import Rate
+    from currency.models import Rate, Source
 
     privatbank_currency_url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
     response = requests.get(privatbank_currency_url)
@@ -42,8 +43,10 @@ def parse_privatbank():
     response.raise_for_status()  # raise error if status_code is not 2xx
 
     rates = response.json()
-    source = 'privatbank'
-    # available_currency_types = ('USD', 'EUR')
+    source = Source.objects.get_or_create(
+        code_name=consts.CODE_NAME_PRIVATBANK,
+        defaults={'name': 'PrivatBank'},
+    )[0]
     available_currency_types = {
         'USD': mch.TYPE_USD,
         'EUR': mch.TYPE_EUR,

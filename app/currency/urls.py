@@ -2,7 +2,8 @@ from currency.views import (
     GeneratePasswordView,
     RateListView, response_codes, RateCreateView,
     RateDetailView, RateUpdateView,
-    RateDeleteView, ContactUsCreateView
+    RateDeleteView, ContactUsCreateView,
+    SourceDetailView,
 )
 from django.urls import path
 
@@ -23,6 +24,8 @@ urlpatterns = [
     path('rate/delete/<int:pk>/', RateDeleteView.as_view(), name='rate-delete'),
 
     path('contactus/create/', ContactUsCreateView.as_view(), name='contactus-create'),
+
+    path('source/details/<int:pk>/', SourceDetailView.as_view(), name='source-details'),
 
     path('response-codes/', response_codes),
     path('gen-pass/', GeneratePasswordView.as_view()),
