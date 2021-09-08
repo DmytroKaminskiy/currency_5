@@ -9,7 +9,7 @@ from django.views.generic import (
     DeleteView, TemplateView
 )
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 
 
 class GeneratePasswordView(TemplateView):
@@ -22,7 +22,7 @@ class GeneratePasswordView(TemplateView):
         context['password'] = gen_pass(password_len)
 
         return context
-9
+
 
 class RateListView(ListView):
     queryset = Rate.objects.all().select_related('source').order_by('-created')
@@ -85,6 +85,22 @@ class ContactUsCreateView(CreateView):
 class SourceDetailView(DetailView):
     queryset = Source.objects.all()
     template_name = 'source_details.html'
+
+
+# def rates_list_api_example(request):
+#     import json
+#
+#     rates = Rate.objects.all()
+#     result = []
+#     for rate in rates:
+#         result.append({
+#             'id': rate.id,
+#             'buy': float(rate.buy),
+#             'sale': float(rate.sale),
+#         })
+#
+#     # return HttpResponse(json.dumps(result), content_type='application/json')
+#     return JsonResponse(result, safe=False)
 
 
 def response_codes(request):

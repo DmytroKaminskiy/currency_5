@@ -309,29 +309,29 @@ smtp - simple mail transfer protocol 587, 22
 # print(c1.__add__(c2))
 
 
-class A:
-    def foo(self):
-        print('A')
-
-class B(A):
-    def foo(self):
-        print('B')
-
-class C(B):
-    def foo(self):
-        print('C')
-
-class D(A):
-    pass
-    # def foo(self):
-    #     print('D')
-
-class Z(D, C, A):
-    pass
-
-z = Z()
-z.foo()
-print(Z.__mro__)  # method resolution order
+# class A:
+#     def foo(self):
+#         print('A')
+#
+# class B(A):
+#     def foo(self):
+#         print('B')
+#
+# class C(B):
+#     def foo(self):
+#         print('C')
+#
+# class D(A):
+#     pass
+#     # def foo(self):
+#     #     print('D')
+#
+# class Z(D, C, A):
+#     pass
+#
+# z = Z()
+# z.foo()
+# print(Z.__mro__)  # method resolution order
 
 
 '''

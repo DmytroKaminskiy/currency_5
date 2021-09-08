@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'rangefilter',
     'import_export',
+    'rest_framework',
 
     'accounts',
     'currency',

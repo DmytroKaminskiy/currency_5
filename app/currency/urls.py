@@ -4,6 +4,7 @@ from currency.views import (
     RateDetailView, RateUpdateView,
     RateDeleteView, ContactUsCreateView,
     SourceDetailView,
+    # rates_list_api_example,
 )
 from django.urls import path
 
@@ -29,4 +30,7 @@ urlpatterns = [
 
     path('response-codes/', response_codes),
     path('gen-pass/', GeneratePasswordView.as_view()),
+
+    # API example
+    # path('api/rate/list/', rates_list_api_example),
 ]
