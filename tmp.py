@@ -335,15 +335,44 @@ smtp - simple mail transfer protocol 587, 22
 
 
 '''
-backend
-python3
-django
-database
+django storages
 
-frontend
-html
-css
-javascript
+https://docs.python.org/3/library/dis.html
 
-bootstrap
+swagger
+filters
+token
+throttling
+read_only fields
+
+http://127.0.0.1:8000/api/v1/rates/
+GET
+{
+    "count": 109,
+    "next": "http://127.0.0.1:8000/api/v1/rates/?page=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "buy": "26.80",
+            "sale": "27.20",
+            "source": 1,
+            "created": "2021-09-01T17:55:00.519829Z"
+        },
+        {
+            "id": 2,
+            "buy": "31.55",
+            "sale": "32.15",
+            "source": 1,
+            "created": "2021-09-01T17:55:00.526523Z"
+        },
+        {
+            "id": 3,
+            "buy": "31.55",
+            "sale": "32.15",
+            "source": 1,
+            "created": "2021-09-01T17:56:09.428571Z"
+        },...
+
+
 '''
