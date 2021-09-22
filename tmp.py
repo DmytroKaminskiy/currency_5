@@ -375,4 +375,11 @@ GET
         },...
 
 
+1. Manual QA
+2. Automation QA
+
+3. Unit Tests !
+4. Integration
+
+5. Load Testing
 '''

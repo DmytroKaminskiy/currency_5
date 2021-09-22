@@ -1,0 +1,1 @@
+[{"model": "currency.source", "pk": 1, "fields": {"name": "privatbank", "code_name": "CODE_NAME_PRIVATBANK"}}]
