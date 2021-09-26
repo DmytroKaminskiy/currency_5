@@ -39,7 +39,7 @@ def test_invalid_form(client):
     assert ContactUs.objects.count() == contactus_initial_count
 
 
-def test_valid_form(client):
+def test_valid_form(client, mailoutbox):
     contactus_initial_count = ContactUs.objects.count()
     form_data = {
         'email_to': 'test_valid_form@example.com',
@@ -56,3 +56,9 @@ def test_valid_form(client):
     assert contact_us_object.email_to == form_data['email_to']
     assert contact_us_object.subject == form_data['subject']
     assert contact_us_object.body == form_data['body']
+
+    assert len(mailoutbox) == 1
+
+    mail = mailoutbox[0]
+    assert mail.to == ['testtestapp454545@gmail.com']
+    assert mail.from_email == 'testtestapp454545@gmail.com'

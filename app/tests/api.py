@@ -1,20 +1,18 @@
-from rest_framework.test import APIClient
-
 from currency.models import Source
 
 
-def test_get_rates():
-    client = APIClient()
+def test_get_rates(api_client_auth):
+    print('START TEST')
     url = '/api/v1/rates/'
-    response = client.get(url)
+    response = api_client_auth.get(url)
     assert response.status_code == 200
     assert response.json()
+    print('END TEST')
 
 
-def test_post_invalid():
-    client = APIClient()
+def test_post_invalid(api_client_auth):
     url = '/api/v1/rates/'
-    response = client.post(url, json={})
+    response = api_client_auth.post(url, json={})
     assert response.status_code == 400
     assert response.json() == {
         'buy': ['This field is required.'],
@@ -23,8 +21,7 @@ def test_post_invalid():
     }
 
 
-def test_post_valid():
-    client = APIClient()
+def test_post_valid(api_client_auth):
     source = Source.objects.last()
     url = '/api/v1/rates/'
     json_data = {
@@ -32,7 +29,7 @@ def test_post_valid():
         'sale': 22,
         'source': source.pk,
     }
-    response = client.post(url, data=json_data)
+    response = api_client_auth.post(url, data=json_data)
     assert response.status_code == 201
     assert response.json()['buy'] == '21.00'
     assert response.json()['sale'] == '22.00'

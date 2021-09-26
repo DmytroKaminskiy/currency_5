@@ -25,7 +25,8 @@ class GeneratePasswordView(TemplateView):
 
 
 class RateListView(ListView):
-    queryset = Rate.objects.all().select_related('source').order_by('-created')
+    queryset = Rate.objects.all().defer('created').select_related('source').order_by('-created')
+    # queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
 
     # def get(self, request, *args, **kwargs):
@@ -86,6 +87,11 @@ class SourceDetailView(DetailView):
     queryset = Source.objects.all()
     template_name = 'source_details.html'
 
+
+class SourceListView(ListView):
+    # queryset = Source.objects.all().prefetch_related('rates')
+    queryset = Source.objects.all()
+    template_name = 'source_list.html'
 
 # def rates_list_api_example(request):
 #     import json

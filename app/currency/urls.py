@@ -3,7 +3,7 @@ from currency.views import (
     RateListView, response_codes, RateCreateView,
     RateDetailView, RateUpdateView,
     RateDeleteView, ContactUsCreateView,
-    SourceDetailView,
+    SourceDetailView, SourceListView,
     # rates_list_api_example,
 )
 from django.urls import path
@@ -27,6 +27,7 @@ urlpatterns = [
     path('contactus/create/', ContactUsCreateView.as_view(), name='contactus-create'),
 
     path('source/details/<int:pk>/', SourceDetailView.as_view(), name='source-details'),
+    path('source/list/', SourceListView.as_view(), name='source-list'),
 
     path('response-codes/', response_codes),
     path('gen-pass/', GeneratePasswordView.as_view()),
