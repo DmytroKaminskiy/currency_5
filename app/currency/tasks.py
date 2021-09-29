@@ -1,10 +1,12 @@
 from celery import shared_task
 from django.conf import settings
+from django.core.cache import cache
 from django.core.mail import send_mail
 import requests
 from decimal import Decimal
 from currency import consts
 from currency import model_choices as mch
+from currency.services import get_latest_rates
 
 
 def round_currency(num):
@@ -76,3 +78,5 @@ def parse_privatbank():
                     buy=buy,
                     source=source,
                 )
+                cache.delete(consts.CACHE_KEY_LATEST_RATES)
+                get_latest_rates()

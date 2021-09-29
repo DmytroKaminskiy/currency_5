@@ -1,4 +1,7 @@
+from django.core.cache import cache
 from django.urls import reverse_lazy
+
+from currency.services import get_latest_rates
 from currency.tasks import contact_us
 
 from currency.utils import generate_password as gen_pass
@@ -8,6 +11,7 @@ from django.views.generic import (
     ListView, CreateView, DetailView, UpdateView,
     DeleteView, TemplateView
 )
+from currency import model_choices as mch, consts
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 
@@ -92,6 +96,15 @@ class SourceListView(ListView):
     # queryset = Source.objects.all().prefetch_related('rates')
     queryset = Source.objects.all()
     template_name = 'source_list.html'
+
+
+class LatestRatesView(TemplateView):
+    template_name = 'latest_rates.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['rate_list'] = get_latest_rates()
+        return context
 
 # def rates_list_api_example(request):
 #     import json
