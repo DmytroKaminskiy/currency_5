@@ -12,6 +12,8 @@ class MyProfileView(LoginRequiredMixin, UpdateView):
     fields = (
         'first_name',
         'last_name',
+        'phone',
+        'email',
         'avatar',
     )
     success_url = reverse_lazy('index')

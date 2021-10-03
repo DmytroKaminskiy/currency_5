@@ -1,6 +1,7 @@
-from django.core.cache import cache
 from django.urls import reverse_lazy
+from urllib.parse import urlencode
 
+from currency.filters import RateFilter
 from currency.services import get_latest_rates
 from currency.tasks import contact_us
 
@@ -11,9 +12,10 @@ from django.views.generic import (
     ListView, CreateView, DetailView, UpdateView,
     DeleteView, TemplateView
 )
-from currency import model_choices as mch, consts
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
+from django_filters.views import FilterView
+
+from django.http import HttpResponse
 
 
 class GeneratePasswordView(TemplateView):
@@ -28,14 +30,23 @@ class GeneratePasswordView(TemplateView):
         return context
 
 
-class RateListView(ListView):
+class RateListView(FilterView):
     queryset = Rate.objects.all().defer('created').select_related('source').order_by('-created')
-    # queryset = Rate.objects.all().order_by('-created')
     template_name = 'rate_list.html'
+    paginate_by = 25
+    filterset_class = RateFilter
 
-    # def get(self, request, *args, **kwargs):
-    #     print(request.COOKIES)
-    #     return super().get(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        get_parameters = {}
+        for key, value in self.request.GET.items():
+            if key != 'page':
+                get_parameters[key] = value
+
+        context['pagination_params'] = urlencode(get_parameters)
+
+        return context
 
 
 class RateCreateView(CreateView):

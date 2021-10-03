@@ -28,8 +28,7 @@ class User(AbstractUser):
 
     email = models.EmailField('email address', blank=True, unique=True)
 
-    # def save(self, *args, **kwargs):
-    #     if not self.username:
-    #         self.username = str(uuid.uuid4())
-    #
-    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        print('BEFORE SAVE')
+        super().save(*args, **kwargs)
+        print('AFTER SAVE')

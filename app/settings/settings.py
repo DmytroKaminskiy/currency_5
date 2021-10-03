@@ -162,7 +162,7 @@ CELERY_BEAT_SCHEDULE = {
         # 'schedule': crontab(minute='*/15'),
     },
 }
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 CACHES = {
     'default': {

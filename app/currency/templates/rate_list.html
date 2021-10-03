@@ -2,41 +2,51 @@
 
 {% block main_content %}
 
-<a href="{% url 'currency:rate-create' %}">Create Rate</a>
+    <a class="btn btn-primary" href="{% url 'currency:rate-create' %}">Create Rate</a>
 
-<table class="table table-striped">
-  <tr>
-    <th>ID</th>
-    <th>Sale</th>
-    <th>Buy</th>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
 
-    <th>Type</th>
-    <th>Source</th>
-    <th>Actions</th>
-  </tr>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Sale</th>
+            <th>Buy</th>
 
-  {% for rate in rate_list %}
-  <tr>
-    <td>{{ rate.id }}</td>
-    <td>{{ rate.sale }}</td>
-    <td>{{ rate.buy }}</td>
-    <td>{{ rate.get_type_display }}</td>
-    <td><a href="{% url 'currency:source-details' rate.source_id %}">{{ rate.source.name }}</a></td>
-    <td>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-          Actions
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="{% url 'currency:rate-details' rate.pk %}">Details</a>
-          <a class="dropdown-item" href="{% url 'currency:rate-update' rate.pk %}">Update</a>
-          <a class="dropdown-item" href="{% url 'currency:rate-delete' rate.pk %}">Delete</a>
-        </div>
-      </div>
-    </td>
-  </tr>
-  {% endfor %}
-</table>
+            <th>Type</th>
+            <th>Source</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for rate in rate_list %}
+            <tr>
+                <td>{{ rate.id }}</td>
+                <td>{{ rate.sale }}</td>
+                <td>{{ rate.buy }}</td>
+                <td>{{ rate.get_type_display }}</td>
+                <td><a href="{% url 'currency:source-details' rate.source_id %}">{{ rate.source.name }}</a></td>
+                <td>{{ rate.created }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{% url 'currency:rate-details' rate.pk %}">Details</a>
+                            <a class="dropdown-item" href="{% url 'currency:rate-update' rate.pk %}">Update</a>
+                            <a class="dropdown-item" href="{% url 'currency:rate-delete' rate.pk %}">Delete</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% include 'includes/paginator.html' %}
 
 {% endblock %}
