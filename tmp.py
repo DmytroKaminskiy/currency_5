@@ -384,44 +384,48 @@ GET
 5. Load Testing
 '''
 
-def send_to_google(result):
-    print(f'Sending to google {result}')
+# def send_to_google(result):
+#     print(f'Sending to google {result}')
+#
+#
+# def send_to_yandex(result):
+#     print(f'Sending to yandex {result}')
+#
+#
+# def get_analytics_callback():
+#     if True:
+#         return send_to_google
+#     else:
+#         return send_to_yandex
+#
+#
+# def add(x, y, callback=None):
+#     result = x + y
+#
+#     if callback is not None:
+#         callback(result)
+#
+#     return result
+#
+#
+#
+# add(1, 2, callback=get_analytics_callback())
+# add(2, 3, callback=get_analytics_callback())
+# add(3, 3, callback=get_analytics_callback())
+#
+#
+# def add(x, y, mod=None):
+#     result = x + y
+#
+#     if mod is not None:
+#         result = mod(result)
+#
+#     return result
+#
+#
+# # print(add(2, 2, str))
+# print(add(2, 2, lambda x: x ** 2))
 
-
-def send_to_yandex(result):
-    print(f'Sending to yandex {result}')
-
-
-def get_analytics_callback():
-    if True:
-        return send_to_google
-    else:
-        return send_to_yandex
-
-
-def add(x, y, callback=None):
-    result = x + y
-
-    if callback is not None:
-        callback(result)
-
-    return result
-
-
-
-add(1, 2, callback=get_analytics_callback())
-add(2, 3, callback=get_analytics_callback())
-add(3, 3, callback=get_analytics_callback())
-
-
-def add(x, y, mod=None):
-    result = x + y
-
-    if mod is not None:
-        result = mod(result)
-
-    return result
-
-
-# print(add(2, 2, str))
-print(add(2, 2, lambda x: x ** 2))
+# t = (1, 2, [3, 4])
+# t[-1].append(5)
+# print(t)

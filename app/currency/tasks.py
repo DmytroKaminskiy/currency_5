@@ -26,6 +26,7 @@ def debug_task(sleep_time: int = 5):
 
 @shared_task
 def contact_us(subject, body):
+    # I/O bound
     send_mail(
         subject,
         body,
@@ -37,6 +38,7 @@ def contact_us(subject, body):
 
 @shared_task
 def parse_privatbank():
+    # I/O
     from currency.models import Rate, Source
 
     privatbank_currency_url = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5'
