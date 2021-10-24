@@ -1,0 +1,21 @@
+upstream django {
+    server localhost:8000;
+    server localhost:8001;
+}
+
+
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name _;
+        #server_name 127.0.0.1 mydomain.com;
+
+        location /static {
+            root /home/dima/hillel/currency_5/static_content;
+        }
+
+        location / {
+            include /etc/nginx/proxy_params;
+            proxy_pass http://django;
+        }
+}

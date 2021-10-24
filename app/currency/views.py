@@ -160,6 +160,8 @@ def response_codes(request):
     500 - Server Error
     502 - server not available
     '''
+    from time import sleep
+    sleep(5)
 
     response = HttpResponse('Status Code', status=404)
     return response

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'rest_framework_simplejwt',
+    'storages',
 
     'accounts',
     'currency',
@@ -126,6 +127,7 @@ AUTH_USER_MODEL = 'accounts.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / '..' / 'static_content' / 'static'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
@@ -234,3 +236,12 @@ SIMPLE_JWT = {
 #         }
 #     }
 # }
+
+# AWS_S3_REGION_NAME = 'fra1'
+# AWS_S3_ENDPOINT_URL = 'https://hillel-test.fra1.digitaloceanspaces.com'
+# AWS_ACCESS_KEY_ID = 'AMKFDYE2VQRGUL6RZBSO'
+# AWS_SECRET_ACCESS_KEY = 'h+0etnEaiI3DySc74cZqHADlIugoT+lvaTc2MqiRoLk'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+# AWS_STORAGE_BUCKET_NAME = 'static'
+# STATIC_URL = 'https://hillel-test.fra1.digitaloceanspaces.com/static/'
+# AWS_DEFAULT_ACL = 'public-read'
