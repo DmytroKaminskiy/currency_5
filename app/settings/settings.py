@@ -215,6 +215,18 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
 
+'''
+Cloud Providers
+AWS
+GCP - google
+Azure - microsoft
+Digital Ocean
+
+Linode, Hetzner
+
+Classic server - managed by admin
+'''
+
 # LOGGING = {
 #     'version': 1,
 #     'filters': {
@@ -245,3 +257,8 @@ SIMPLE_JWT = {
 # AWS_STORAGE_BUCKET_NAME = 'static'
 # STATIC_URL = 'https://hillel-test.fra1.digitaloceanspaces.com/static/'
 # AWS_DEFAULT_ACL = 'public-read'
+
+try:
+    from settings.settings_local import *
+except ImportError:
+    print('No local settings\n' * 5)
