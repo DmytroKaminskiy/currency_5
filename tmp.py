@@ -429,3 +429,14 @@ GET
 # t = (1, 2, [3, 4])
 # t[-1].append(5)
 # print(t)
+
+
+'''
+1. nginx
+2. django
+3. rabbitmq - X
+4. memcached - X
+5. celery
+6. celerybeat
+7. database - X
+'''

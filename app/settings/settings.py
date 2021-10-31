@@ -82,15 +82,24 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+import os
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / f'db{os.getenv("DB_PREFIX", "1")}.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'currency',
+        'USER': 'db-user',
+        'PASSWORD': 'postgres-password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -257,8 +266,3 @@ Classic server - managed by admin
 # AWS_STORAGE_BUCKET_NAME = 'static'
 # STATIC_URL = 'https://hillel-test.fra1.digitaloceanspaces.com/static/'
 # AWS_DEFAULT_ACL = 'public-read'
-
-try:
-    from settings.settings_local import *
-except ImportError:
-    print('No local settings\n' * 5)
