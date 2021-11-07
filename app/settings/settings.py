@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from pathlib import Path
@@ -9,19 +10,19 @@ from django.urls import reverse_lazy
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-f*6!j-#awefserfz5#5ag(8q+9@2=fvn$e!hcv+k8b^2*q%xwghrgvs+t!'
+SECRET_KEY = os.getenv('SECRET_KEY', 'super-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# TODO move to env
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = os.getenv('DEBUG') == 'true'
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(';')
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGOUT_REDIRECT_URL = reverse_lazy('index')
 # Application definition
 
-HTTP_SCHEMA = 'http'
-DOMAIN = 'localhost:8000'
+HTTP_SCHEMA = os.getenv('HTTP_SCHEMA', 'http')
+DOMAIN = os.getenv('DOMAIN', 'localhost:8000')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -82,22 +83,14 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-import os
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / f'db{os.getenv("DB_PREFIX", "1")}.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'currency',
-        'USER': 'db-user',
-        'PASSWORD': 'postgres-password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ['POSTGRES_HOST'],
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 # Password validation
@@ -155,6 +148,7 @@ INTERNAL_IPS = [
     '172.31.69.226',
 ]
 
+# TODO move to env
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -164,12 +158,17 @@ EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
 EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
 SUPPORT_EMAIL = 'testtestapp454545@gmail.com'
 
-CELERY_BROKER_URL = 'amqp://localhost'
+CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
+    os.environ['RABBITMQ_DEFAULT_USER'],
+    os.environ['RABBITMQ_DEFAULT_PASS'],
+    os.getenv('RABBITMQ_DEFAULT_HOST', 'localhost'),
+    os.getenv('RABBITMQ_DEFAULT_PORT', '5672'),
+)
 
 CELERY_BEAT_SCHEDULE = {
     'debug': {
         'task': 'currency.tasks.parse_privatbank',
-        'schedule': crontab(minute='*/15'),
+        'schedule': crontab(minute='*/1'),
         # 'schedule': crontab(minute='*/15'),
     },
 }
@@ -178,7 +177,7 @@ CELERY_BEAT_SCHEDULE = {
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': '127.0.0.1:11211',
+        'LOCATION': f'{os.environ["MEMCACHED_HOST"]}:{os.environ.get("MEMCACHED_PORT", "11211")}',
     }
 }
 
@@ -223,18 +222,6 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
-
-'''
-Cloud Providers
-AWS
-GCP - google
-Azure - microsoft
-Digital Ocean
-
-Linode, Hetzner
-
-Classic server - managed by admin
-'''
 
 # LOGGING = {
 #     'version': 1,

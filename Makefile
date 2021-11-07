@@ -1,6 +1,9 @@
 SHELL := /bin/bash
 
-manage_py := python app/manage.py
+manage_py := docker exec -it backend python app/manage.py
+
+build:
+	cp -n .env.example .env && docker-compose up -d --build
 
 runserver:
 	$(manage_py) runserver 0:8000
@@ -19,18 +22,6 @@ show_urls:
 
 createsuperuser:
 	$(manage_py) createsuperuser
-
-gunicorn:
-	cd app && gunicorn settings.wsgi:application --workers 4 --bind 0.0.0.0:8001 --threads 4 --timeout 3 --max-requests 1000 --log-level debug
-
-worker:
-	cd app && celery -A settings worker -l info --autoscale=10,0
-	#cd app && celery -A settings worker -l info --concurrency 20
-    # prefork - Process
-    # gevent - Thread
-
-beat:
-	cd app && celery -A settings beat -l info
 
 pytest:
 	 pytest ./app/tests/ --cov=app --cov-report html && coverage report --fail-under=74
