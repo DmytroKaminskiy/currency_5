@@ -1,0 +1,18 @@
+
+~ 2015-2016
+Flask - microframework
+Django - framework (macro)
+tornado
+
+> 2016
+asyncio
+Sanic
+
+~ 2020
+typing
+FastAPI (starlet)
+async + typing
+
+
+gunicorn + uwsgi (wsgi)
+uvicorn (asgi)
