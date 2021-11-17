@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from urllib.parse import urlencode
 
@@ -16,6 +17,8 @@ from django.views.generic import (
 from django_filters.views import FilterView
 
 from django.http import HttpResponse
+
+from mixins import AllowSuperuserMixin
 
 
 class GeneratePasswordView(TemplateView):
@@ -57,19 +60,19 @@ class RateCreateView(CreateView):
     template_name = 'rate_create.html'
 
 
-class RateDetailView(DetailView):
+class RateDetailView(LoginRequiredMixin, DetailView):
     queryset = Rate.objects.all()
     template_name = 'rate_details.html'
 
 
-class RateUpdateView(UpdateView):
+class RateUpdateView(AllowSuperuserMixin, UpdateView):
     queryset = Rate.objects.all()
     form_class = RateForm
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'rate_update.html'
 
 
-class RateDeleteView(DeleteView):
+class RateDeleteView(AllowSuperuserMixin, DeleteView):
     queryset = Rate.objects.all()
     success_url = reverse_lazy('currency:rate-list')
     template_name = 'rate_delete.html'

@@ -13,6 +13,8 @@ app_name = 'api'
 
 router = DefaultRouter()
 router.register(r'rates', views.RateViewSet, basename='rate')
+router.register(r'sources', views.SourceViewSet, basename='source')
+router.register(r'contactus', views.ContactUsViewSet, basename='contactus')
 
 urlpatterns = [
     path('choices/', views.RateChoicesView.as_view(), name='currency-choices'),

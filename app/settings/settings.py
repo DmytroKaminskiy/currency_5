@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'storages',
+    'crispy_forms',
+    'silk',
 
     'accounts',
     'currency',
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
     # 'currency.middlewares.ResponseTimeMiddleware',
     # 'currency.middlewares.GclidMiddleware',
 ]
@@ -65,7 +68,9 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'accounts' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,15 +152,20 @@ INTERNAL_IPS = [
     '127.0.0.1',
     '172.31.69.226',
 ]
+if DEBUG:
+    import os  # only if you haven't already imported this
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
 
 # TODO move to env
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
-EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
+# EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
 SUPPORT_EMAIL = 'testtestapp454545@gmail.com'
 
 CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
@@ -189,7 +199,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (  # 403
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_THROTTLE_RATES': {
         'rates_anon_trottle': '20/min',
@@ -222,6 +232,8 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # LOGGING = {
 #     'version': 1,

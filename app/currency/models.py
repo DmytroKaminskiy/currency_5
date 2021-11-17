@@ -1,10 +1,26 @@
 from django.db import models
+from django.templatetags.static import static
+
 from currency import model_choices as mch
 
 
 class Source(models.Model):
     name = models.CharField(max_length=64)
     code_name = models.CharField(max_length=24, unique=True, editable=False)
+
+    logo = models.FileField(
+        upload_to=f'sources/logo',
+        blank=True,
+        null=True,
+        default=None,
+    )
+
+    # .get_{filed_name}_display()
+
+    def get_logo(self):
+        if self.logo:
+            return self.logo.url
+        return static('images/source-default.png')
 
 
 # Model
@@ -24,8 +40,6 @@ class Rate(models.Model):
         null=False,
         default=mch.TYPE_USD,
     )
-    # .get_{filed_name}_display()
-
 
 
 class ContactUs(models.Model):
@@ -39,6 +53,7 @@ class ResponseLog(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     status_code = models.PositiveSmallIntegerField()
     path = models.CharField(max_length=255)
+    request_method = models.CharField(max_length=255, choices=mch.METHODS, default='GET')
     response_time = models.PositiveSmallIntegerField(
         help_text='in milliseconds.'
     )

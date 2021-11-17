@@ -1,5 +1,5 @@
 from django.contrib import admin
-from currency.models import Rate
+from currency.models import Rate, Source
 
 from rangefilter.filters import DateRangeFilter
 from import_export.admin import ImportExportModelAdmin
@@ -35,4 +35,11 @@ class RateAdmin(ImportExportModelAdmin):
         return False
 
 
+class SourceAdmin(ImportExportModelAdmin):
+    list_display = (
+        'id',
+    )
+
+
 admin.site.register(Rate, RateAdmin)
+admin.site.register(Source, SourceAdmin)

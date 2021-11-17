@@ -69,3 +69,10 @@ exists
 
 https://docs.djangoproject.com/en/3.2/ref/models/querysets/#field-lookups
 '''
+
+'''
+ETL
+1. (Extract) get info (sources - json, csv, html, (authorization))
+2. (Transform) normalize (2020/12/30) (2020-12-30, 30-12-2020, 30/12/2020, 30-12-2020T12:12:46)
+3. (Load) Load data (sve to database, external API)
+'''

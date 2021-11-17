@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from currency.models import Rate, Source
+from currency.models import Rate, Source, ContactUs
 
 
 class SourceSerializer(serializers.ModelSerializer):
@@ -14,6 +14,7 @@ class SourceSerializer(serializers.ModelSerializer):
 
 class RateSerializer(serializers.ModelSerializer):
     source_obj = SourceSerializer(source='source', read_only=True)
+
     # read_only=True, write_only=False
 
     class Meta:
@@ -30,3 +31,25 @@ class RateSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'source': {'write_only': True},
         }
+
+
+class SourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Source
+        fields = (
+            'id',
+            'name',
+            'code_name',
+            'logo',
+        )
+
+
+class ContactUsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactUs
+        fields = (
+            'id',
+            'email_to',
+            'subject',
+            'body',
+        )
