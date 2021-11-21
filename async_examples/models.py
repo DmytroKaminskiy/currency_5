@@ -1,11 +1,15 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+import sqlalchemy
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.types import JSON
 
-from database import Base
+metadata = sqlalchemy.MetaData()
 
 
-class User(Base):
-    __tablename__ = "users"
-
-    id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String)
-    last_name = Column(String)
+zoom_event_table = sqlalchemy.Table(
+    "zoom_event",
+    metadata,
+    sqlalchemy.Column("id", sqlalchemy.Integer, primary_key=True),
+    sqlalchemy.Column("event", sqlalchemy.String(120), index=True),
+    sqlalchemy.Column('payload', JSON),
+    sqlalchemy.Column('event_ts', sqlalchemy.BigInteger),
+)

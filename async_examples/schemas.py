@@ -1,10 +1,16 @@
-from pydantic import BaseModel
+from typing import Optional
+from pydantic import UUID4, BaseModel, EmailStr, Field, validator
 
 
-class User(BaseModel):
+class ZoomEventBase(BaseModel):
+    event_ts: int
+    event: str
+    payload: dict
+
+
+class ZoomEventCreate(ZoomEventBase):
+    pass
+
+
+class ZoomEventRead(ZoomEventBase):
     id: int
-    first_name: str
-    last_name: str
-
-    class Config:
-        orm_mode = True
