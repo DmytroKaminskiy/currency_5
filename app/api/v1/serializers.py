@@ -9,6 +9,8 @@ class SourceSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
+            'code_name',
+            'logo',
         )
 
 
@@ -32,16 +34,6 @@ class RateSerializer(serializers.ModelSerializer):
             'source': {'write_only': True},
         }
 
-
-class SourceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Source
-        fields = (
-            'id',
-            'name',
-            'code_name',
-            'logo',
-        )
 
 
 class ContactUsSerializer(serializers.ModelSerializer):

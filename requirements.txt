@@ -99,3 +99,4 @@ zope.interface==5.4.0
 flower
 django-crispy-forms
 django-silk
+django-cors-headers
