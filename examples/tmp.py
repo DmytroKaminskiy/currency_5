@@ -432,11 +432,15 @@ GET
 
 
 '''
-1. nginx
-2. django
-3. rabbitmq - X
-4. memcached - X
-5. celery
-6. celerybeat
-7. database - X
+agile
+scrum vs kanban (mixed)
+waterfall
+
+tasks 
+
+interview
+
+man in the middle
+Client ----   MAN   ---- Server
+https
 '''
